@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Search, Loader2, ExternalLink, ThumbsUp, ThumbsDown, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import API_URL from '../config';
 
 const SearchForm = () => {
     const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ const SearchForm = () => {
                 if (suggestionTimer) clearTimeout(suggestionTimer);
                 const timer = setTimeout(async () => {
                     try {
-                        const res = await axios.get(`http://localhost:5000/api/suggestions/title?q=${encodeURIComponent(query)}`);
+                        const res = await axios.get(`${API_URL}/api/suggestions/title?q=${encodeURIComponent(query)}`);
                         setSuggestions(res.data);
                         setShowSuggestions(true);
                     } catch (err) {
@@ -49,7 +50,7 @@ const SearchForm = () => {
             if (suggestionTimer) clearTimeout(suggestionTimer);
             const timer = setTimeout(async () => {
                 try {
-                    const res = await axios.get(`http://localhost:5000/api/suggestions/author?title=${encodeURIComponent(formData.title)}`);
+                    const res = await axios.get(`${API_URL}/api/suggestions/author?title=${encodeURIComponent(formData.title)}`);
                     setAuthorSuggestions(res.data);
                     setShowAuthorSuggestions(true);
                 } catch (err) {
@@ -68,7 +69,7 @@ const SearchForm = () => {
         // Pre-fetch auth suggestions
         setTimeout(async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/suggestions/author?title=${encodeURIComponent(suggestion.title)}`);
+                const res = await axios.get(`${API_URL}/api/suggestions/author?title=${encodeURIComponent(suggestion.title)}`);
                 setAuthorSuggestions(res.data);
                 setShowAuthorSuggestions(true);
             } catch (ignore) { }
@@ -85,8 +86,7 @@ const SearchForm = () => {
         setFeedbackGiven(false);
         try {
             const payload = { ...formData, excludeUrl };
-            // Replace with your local backend address! (e.g. http://localhost:5000/api/search)
-            const res = await axios.post('http://localhost:5000/api/search', payload);
+            const res = await axios.post(`${API_URL}/api/search`, payload);
             setResults(res.data.result);
             setAuthorTree(res.data.authorTree);
         } catch (err) {
@@ -112,7 +112,7 @@ const SearchForm = () => {
         setFeedbackGiven(true);
 
         try {
-            await axios.post('http://localhost:5000/api/feedback', {
+            await axios.post(`${API_URL}/api/feedback`, {
                 title: results.title,
                 author: results.author,
                 url: results.onlineLink,

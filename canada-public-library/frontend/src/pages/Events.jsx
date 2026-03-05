@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, ExternalLink, MapPin } from 'lucide-react';
 import axios from 'axios';
+import API_URL from '../config';
 
 const Events = () => {
     const [location, setLocation] = useState('');
@@ -18,7 +19,7 @@ const Events = () => {
         setData(null);
 
         try {
-            const res = await axios.post('http://localhost:5000/api/events', { location });
+            const res = await axios.post(`${API_URL}/api/events`, { location });
             if (res.data.error) {
                 setError(res.data.error);
             } else {

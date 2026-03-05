@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Lock, LogIn, ArrowRight, UserPlus, Library } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config';
 import './Login.css';
 
 const Login = () => {
@@ -21,7 +22,7 @@ const Login = () => {
         setErrorMsg('');
 
         try {
-            const endpoint = isRegister ? 'http://localhost:5000/api/auth/register' : 'http://localhost:5000/api/auth/login';
+            const endpoint = isRegister ? `${API_URL}/api/auth/register` : `${API_URL}/api/auth/login`;
             const payload = isRegister ? { fullName, email, password } : { email, password };
 
             const res = await axios.post(endpoint, payload);
