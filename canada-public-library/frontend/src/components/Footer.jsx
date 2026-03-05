@@ -54,7 +54,7 @@ const Footer = () => {
                         Designed and Developed by <span className="developer-name" style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>Anurag sharma</span>
                     </p>
                     <a
-                        href="https://www.linkedin.com/in/anurag-sharma"
+                        href="https://www.linkedin.com/in/anurag-sharma-82b746220/"
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
