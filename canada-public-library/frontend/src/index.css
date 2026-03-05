@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* Vibrant, eye-catching Light Mode Palette (Sunrise/Morning) */
+  --bg-primary: #fff5eb;
+  --bg-secondary: #ffe4d6;
+  --text-primary: #2d1810;
+  --text-secondary: #5c3a21;
+  --accent-color: #ff6b35;
+  --accent-hover: #ff8c61;
+  --card-bg: #ffffff;
+  --input-bg: #fffafa;
+  --border-color: #ffd8c4;
+  --shadow-color: rgba(255, 107, 53, 0.15);
+  --footer-bg: #2d1810;
+  --footer-text: #ffffff;
+  --border-radius: 12px;
+  --box-shadow: 0 10px 30px var(--shadow-color);
+  --box-shadow-hover: 0 15px 40px rgba(255, 107, 53, 0.25);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+[data-theme="dark"] {
+  /* Sophisticated Dark Mode Palette */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-color: #38bdf8;
+  /* Bright Sky Blue */
+  --accent-hover: #7dd3fc;
+  --card-bg: #1e293b;
+  --input-bg: #334155;
+  --border-color: #475569;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --footer-bg: #0b1120;
+  --footer-text: #f8fafc;
+  --box-shadow: 0 10px 30px var(--shadow-color);
+  --box-shadow-hover: 0 15px 40px rgba(56, 189, 248, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Playfair Display', serif;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  transition: color 0.4s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: var(--transition);
+}
+
+input,
+select {
+  font-family: 'Inter', sans-serif;
+  outline: none;
+}
+
+/* Animations for aesthetics */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-animation-delayed {
+  animation: float 7s ease-in-out infinite 2s;
+}
+
+.glass-panel {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Global Dodge Properties */
+img {
+  will-change: transform, translate, rotate;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), translate 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
