@@ -1,1 +1,160 @@
-[]
+[
+  {
+    "title": "rich dad",
+    "author": "robert",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=kRqeDwAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "physics ",
+    "author": "hc verma",
+    "urls": [
+      {
+        "link": "http://books.google.ca/books?id=MEe3tQEACAAJ&dq=intitle:physics++inauthor:hc+verma&hl=&cd=1&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Rich Dad Poor Dad",
+    "author": "robert",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=kRqeDwAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      },
+      {
+        "link": "http://play.google.com/books/reader?id=kRqeDwAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      },
+      {
+        "link": "http://play.google.com/books/reader?id=kRqeDwAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Rich Dad, Poor Dad",
+    "author": "Robert T. Kiyosaki",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=kRqeDwAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Physics for IIT JEE &NEET",
+    "author": "Vineeta Singh",
+    "urls": [
+      {
+        "link": "http://books.google.ca/books?id=6ahAzAEACAAJ&dq=intitle:Physics+for+IIT+JEE+%26NEET+inauthor:Vineeta+Singh&hl=&cd=1&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Ikigai",
+    "author": "Héctor García",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=4UCnDQAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "The Power of Your Subconscious Mind",
+    "author": "Joseph Murphy",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=pJZOEAAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Twist Olivér. [Oliever Twist]. Regény. (Ford. Bálint György. Ill. Árkossy István).",
+    "author": "Charles Dickens",
+    "urls": [
+      {
+        "link": "http://books.google.ca/books?id=CXjOsgEACAAJ&dq=intitle:Twist+Oliv%C3%A9r.+%5BOliever+Twist%5D.+Reg%C3%A9ny.+(Ford.+B%C3%A1lint+Gy%C3%B6rgy.+Ill.+%C3%81rkossy+Istv%C3%A1n).+inauthor:Charles+Dickens&hl=&cd=1&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Harry Potter and the Half-Blood Prince",
+    "author": "J.K. Rowling",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=qaKkenvL29UC&hl=&source=gbs_api",
+        "useful": true
+      }
+    ]
+  },
+  {
+    "title": "Daddy's Little Girl",
+    "author": "Mary Higgins Clark",
+    "urls": [
+      {
+        "link": "http://books.google.ca/books?id=Fv09zwEACAAJ&dq=intitle:Daddy%27s+Little+Girl+inauthor:Mary+Higgins+Clark&hl=&cd=1&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Book",
+    "author": "William Shakespeare",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=D02LWkkBxn4C&hl=&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Rich Dad Poor Dad - 20th Anniversary Edition (Hindi)",
+    "author": "Robert Kiyosaki",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=PIypDwAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Rich and Poor in Grenoble 1600 - 1814",
+    "author": "Kathryn Norberg",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=pRa6EAAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Chanakya Neeti",
+    "author": "CHANAKYA",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=0CQtEQAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      }
+    ]
+  },
+  {
+    "title": "Champak English",
+    "author": "Delhi Press magazines",
+    "urls": [
+      {
+        "link": "http://play.google.com/books/reader?id=OGWBDwAAQBAJ&hl=&source=gbs_api",
+        "useful": null
+      }
+    ]
+  }
+]

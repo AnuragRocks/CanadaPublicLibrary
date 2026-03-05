@@ -14,6 +14,8 @@ const SearchForm = () => {
     const [results, setResults] = useState(null);
     const [authorTree, setAuthorTree] = useState([]);
     const [feedbackGiven, setFeedbackGiven] = useState(false);
+    const [authorSuggestions, setAuthorSuggestions] = useState([]);
+    const [showAuthorSuggestions, setShowAuthorSuggestions] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [suggestionTimer, setSuggestionTimer] = useState(null);
@@ -22,30 +24,60 @@ const SearchForm = () => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
 
-        if (name === 'title' || name === 'author') {
-            const query = name === 'title' ? value : formData.title;
-            if (query.length >= 2) {
+        if (name === 'title') {
+            const query = value;
+            if (query.length >= 3) {
                 if (suggestionTimer) clearTimeout(suggestionTimer);
                 const timer = setTimeout(async () => {
                     try {
-                        const res = await axios.get(`http://localhost:5000/api/suggestions?q=${encodeURIComponent(query)}`);
+                        const res = await axios.get(`http://localhost:5000/api/suggestions/title?q=${encodeURIComponent(query)}`);
                         setSuggestions(res.data);
                         setShowSuggestions(true);
                     } catch (err) {
                         console.error("Suggestions err", err);
                     }
-                }, 500);
+                }, 400);
                 setSuggestionTimer(timer);
             } else {
                 setSuggestions([]);
                 setShowSuggestions(false);
             }
         }
+
+        if (name === 'author' && formData.title) {
+            const query = value;
+            if (suggestionTimer) clearTimeout(suggestionTimer);
+            const timer = setTimeout(async () => {
+                try {
+                    const res = await axios.get(`http://localhost:5000/api/suggestions/author?title=${encodeURIComponent(formData.title)}`);
+                    setAuthorSuggestions(res.data);
+                    setShowAuthorSuggestions(true);
+                } catch (err) {
+                    console.error("Author suggestions err", err);
+                }
+            }, 400);
+            setSuggestionTimer(timer);
+        } else if (name === 'author') {
+            setShowAuthorSuggestions(false);
+        }
     };
 
     const handleSuggestionClick = (suggestion) => {
         setFormData({ ...formData, title: suggestion.title, author: suggestion.author });
         setShowSuggestions(false);
+        // Pre-fetch auth suggestions
+        setTimeout(async () => {
+            try {
+                const res = await axios.get(`http://localhost:5000/api/suggestions/author?title=${encodeURIComponent(suggestion.title)}`);
+                setAuthorSuggestions(res.data);
+                setShowAuthorSuggestions(true);
+            } catch (ignore) { }
+        }, 300);
+    };
+
+    const handleAuthorSuggestionClick = (suggestion) => {
+        setFormData({ ...formData, author: suggestion.author });
+        setShowAuthorSuggestions(false);
     };
 
     const executeSearch = async (excludeUrl = null) => {
@@ -133,14 +165,14 @@ const SearchForm = () => {
                             {showSuggestions && suggestions.length > 0 && (
                                 <ul className="suggestions-list">
                                     {suggestions.map((s, idx) => (
-                                        <li key={idx} onClick={() => handleSuggestionClick(s)}>
+                                        <li key={idx} onMouseDown={(e) => { e.preventDefault(); handleSuggestionClick(s); }}>
                                             <span style={{ fontWeight: '500' }}>{s.title}</span> <span style={{ fontSize: '0.85em', color: 'var(--text-secondary)' }}>by {s.author}</span>
                                         </li>
                                     ))}
                                 </ul>
                             )}
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" style={{ position: 'relative' }}>
                             <label className="form-label" htmlFor="author">Author of the book</label>
                             <input
                                 type="text"
@@ -150,8 +182,20 @@ const SearchForm = () => {
                                 placeholder="e.g. Robert Kiyosaki"
                                 value={formData.author}
                                 onChange={handleChange}
+                                onFocus={() => { if (authorSuggestions.length > 0) setShowAuthorSuggestions(true); }}
+                                onBlur={() => setTimeout(() => setShowAuthorSuggestions(false), 200)}
+                                autoComplete="off"
                                 required
                             />
+                            {showAuthorSuggestions && authorSuggestions.length > 0 && (
+                                <ul className="suggestions-list">
+                                    {authorSuggestions.map((s, idx) => (
+                                        <li key={idx} onMouseDown={(e) => { e.preventDefault(); handleAuthorSuggestionClick(s); }}>
+                                            <span style={{ fontWeight: '500' }}>{s.author}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     </div>
 
@@ -251,7 +295,12 @@ const SearchForm = () => {
                                                         📍 Found in local libraries!
                                                     </p>
                                                     <div className="alternatives-box">
-                                                        <h4>Available Inventory Locations near {formData.location ? formData.location : 'you'}:</h4>
+                                                        <h4 style={{ marginBottom: '0.2rem' }}>
+                                                            Available Inventory Locations near:
+                                                        </h4>
+                                                        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1rem', fontStyle: 'italic' }}>
+                                                            {results.locationOriginLabel ? `Calculated from: ${results.locationOriginLabel}` : (formData.location ? formData.location : 'you')}
+                                                        </p>
                                                         <ul className="real-time-locations">
                                                             {results.inventory && results.inventory.map((inv, idx) => (
                                                                 <li key={idx} className="library-card glass-panel" style={{ padding: '1rem', marginBottom: '1rem', borderRadius: '8px', borderLeft: '4px solid #059669' }}>
@@ -342,6 +391,15 @@ const SearchForm = () => {
                             {/* Author Tree Structure */}
                             {authorTree.length > 0 && (
                                 <div className="author-tree-section">
+                                    {results.authorPhoto && (
+                                        <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+                                            <img
+                                                src={results.authorPhoto}
+                                                alt={results.author}
+                                                style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--accent-color)' }}
+                                            />
+                                        </div>
+                                    )}
                                     <h3 className="tree-title">Other famous books by {results.author}:</h3>
                                     <div className="tree-container">
                                         <div className="tree-line"></div>
@@ -369,8 +427,8 @@ const SearchForm = () => {
                         </motion.div>
                     )}
                 </AnimatePresence>
-            </motion.div>
-        </section>
+            </motion.div >
+        </section >
     );
 };
 

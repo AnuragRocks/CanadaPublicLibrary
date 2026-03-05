@@ -1,15 +1,33 @@
 import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import SearchForm from './components/SearchForm';
-import About from './components/About';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import CatalogSearch from './pages/CatalogSearch';
+import Events from './pages/Events';
+import AboutUs from './pages/AboutUs';
+import Login from './pages/Login';
 import './App.css';
 
+const PageWrapper = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 15 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, filter: 'blur(5px)', y: -15 }}
+    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+  >
+    {children}
+  </motion.div>
+);
+
 function App() {
+  const location = useLocation();
+
+  // Scroll handled by onExitComplete of AnimatePresence to ensure it doesn't interrupt page exit animation.
   useEffect(() => {
     const makeImageDodge = (e) => {
-      if (e.target.tagName === 'IMG') {
+      if (e.target.tagName === 'IMG' && e.target.classList.contains('hero-img')) {
         const jumpX = (Math.random() > 0.5 ? 1 : -1) * (100 + Math.random() * 150);
         const jumpY = (Math.random() > 0.5 ? 1 : -1) * (100 + Math.random() * 150);
 
@@ -64,9 +82,15 @@ function App() {
 
       <Navbar />
       <main>
-        <Hero />
-        <SearchForm />
-        <About />
+        <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+            <Route path="/catalog" element={<PageWrapper><CatalogSearch /></PageWrapper>} />
+            <Route path="/events" element={<PageWrapper><Events /></PageWrapper>} />
+            <Route path="/about" element={<PageWrapper><AboutUs /></PageWrapper>} />
+            <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
+          </Routes>
+        </AnimatePresence>
       </main>
       <Footer />
     </div>

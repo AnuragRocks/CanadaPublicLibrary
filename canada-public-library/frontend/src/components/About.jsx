@@ -1,12 +1,12 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const About = () => {
     return (
         <section id="about" className="about-section" style={{ padding: '5rem 5%', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }}>
             <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
                 <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--accent-color)' }}>About Our Library</h2>
                 <p style={{ fontSize: '1.2rem', lineHeight: '1.8', marginBottom: '2rem' }}>
-                    Welcome to the Canada Public Library, the nation's premier destination for knowledge, creativity, and community building.
+                    Welcome to the <Link to="/" style={{ color: 'var(--accent-color)', textDecoration: 'none', fontWeight: 'bold' }}>Canada Public Library</Link>, the nation's premier destination for knowledge, creativity, and community building.
                     Established in 1912, we have continuously evolved from a modest reading room to an architectural marvel hosting millions of digital and physical resources.
                 </p>
                 <p style={{ fontSize: '1.1rem', lineHeight: '1.8' }}>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { Link } from 'react-router-dom';
+
 const bookSets = [
     {
         id: 1,
@@ -73,20 +75,21 @@ const Hero = () => {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
                 >
-                    Welcome to the Canada Public Library. Explore thousands of classic and modern books, find tranquil spaces to study, and expand your horizons.
+                    Welcome to the <Link to="/" style={{ color: 'var(--accent-color)', fontWeight: 'bold', textDecoration: 'none' }}>Canada Public Library</Link>. Explore thousands of classic and modern books, find tranquil spaces to study, and expand your horizons.
                 </motion.p>
-                <motion.a
-                    href="#catalog"
-                    className="nav-button"
-                    style={{ padding: '1rem 2rem', fontSize: '1.1rem', display: 'inline-block' }}
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                 >
-                    Explore Collection
-                </motion.a>
+                    <Link
+                        to="/catalog"
+                        className="nav-button"
+                        style={{ padding: '1rem 2rem', fontSize: '1.1rem', display: 'inline-block' }}
+                    >
+                        Explore Collection
+                    </Link>
+                </motion.div>
             </div>
 
             <div className="hero-images">

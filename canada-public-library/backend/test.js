@@ -1,10 +1,23 @@
 const axios = require('axios');
-async function test() {
+const scrapeCoverImage = async (query) => {
     try {
-        const nom = await axios.get('https://nominatim.openstreetmap.org/search?q=library+in+Toronto,+ON&format=json&limit=5', {
-            headers: { 'User-Agent': 'CanadaLibraryApp/1.0' }
+        const response = await axios.get(`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query + ' book cover')}`, {
+            headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
         });
-        console.log(nom.data);
-    } catch (e) { console.error(e.message); }
+        const match = response.data.match(/<img[^>]*src="([^"]+)"/g);
+        if (match) {
+            for (const imgTag of match) {
+                if (imgTag.includes('encrypted-tbn0.gstatic.com/images')) {
+                    const srcMatch = imgTag.match(/src="([^"]+)"/);
+                    if (srcMatch && srcMatch[1]) {
+                        return srcMatch[1];
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        console.error("Scrape error", e.message);
+    }
+    return null;
 }
-test();
+scrapeCoverImage('Rich Dad Poor Dad').then(url => console.log('Image URL:', url));
